@@ -4,16 +4,19 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "predev": "node scripts/ensure-trip-data.mjs",
+    "predev": "npm run ensure-data",
+    "dev:demo": "TRIP_SOURCE=demo npm run ensure-data && next dev",
     "build": "next build",
-    "prebuild": "node scripts/ensure-trip-data.mjs",
+    "prebuild": "npm run ensure-data",
+    "build:demo": "TRIP_SOURCE=demo npm run ensure-data && next build",
     "start": "next start",
     "lint": "eslint",
-    "postinstall": "node scripts/ensure-trip-data.mjs",
-    "ensure-data": "node scripts/ensure-trip-data.mjs"
+    "postinstall": "npm run ensure-data",
+    "ensure-data": "node scripts/ensure-trip-data.mjs && node scripts/copy-maplibre-worker.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.77.0",
+    "maplibre-gl": "^6.19.0",
     "motion": "^14.14.0",
     "next": "16.4.6",
     "react": "19.3.0",

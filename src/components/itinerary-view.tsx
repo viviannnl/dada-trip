@@ -7,6 +7,7 @@ import { pickOutfits } from "@/lib/outfits";
 import { update, useTripState } from "@/lib/store";
 import { cityFor, fmt, todayISO, travelLeg, tripDays, type Activity } from "@/lib/trip";
 import { useWeather } from "@/lib/weather";
+import { DayMap } from "./day-map";
 import { DayPlan } from "./day-plan";
 import { OutfitBoard } from "./outfit-board";
 import { Ransom, Torn } from "./print";
@@ -70,7 +71,7 @@ export function ItineraryView() {
         <section className="relative overflow-hidden px-4 pt-8 pb-14 md:border-r-2 md:border-ink md:px-8">
           <div aria-hidden className="halftone-red absolute -top-10 -right-16 size-64 rounded-full opacity-40" />
 
-          <div className="relative flex items-end gap-3">
+          <div className="relative flex flex-wrap items-end gap-x-3 gap-y-2">
             <span className="vertical rotate-180 font-poster text-4xl leading-none uppercase md:text-5xl">Day</span>
             <span className="ink-rough font-didone text-[clamp(7rem,20vw,13rem)] leading-[0.75] font-black italic">
               {String(n).padStart(2, "0")}
@@ -81,7 +82,7 @@ export function ItineraryView() {
                 text={city.name.toUpperCase()}
                 seed={3}
                 className={`flex-nowrap ${
-                  city.name.length > 7 ? "text-[clamp(1.4rem,3vw,2.4rem)]" : "text-[clamp(1.8rem,4.5vw,3.25rem)]"
+                  city.name.length > 6 ? "text-[clamp(1.4rem,2.6vw,2.4rem)]" : "text-[clamp(1.6rem,3.4vw,3rem)]"
                 }`}
               />
               <p className="mt-2 font-mono text-xs tracking-[0.16em] uppercase">
@@ -126,6 +127,7 @@ export function ItineraryView() {
               <DayStep to={days[n]} href={href} dir="next" />
             </div>
           </div>
+          <DayMap date={date} city={city} items={plans[date] ?? EMPTY} dayLabel={`day ${n}`} />
           <div className="mt-8">
             <DayPlan key={date} items={plans[date] ?? EMPTY} onChange={setPlans} />
           </div>

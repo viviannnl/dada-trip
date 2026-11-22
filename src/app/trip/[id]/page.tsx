@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CityList } from "@/components/city-list";
 import { CoverHero } from "@/components/cover-hero";
 import { ResetButton } from "@/components/reset-button";
+import { RouteMap } from "@/components/route-map";
 import { TRIP_ID } from "@/lib/trip";
 
 const CONTENTS = [
@@ -18,6 +19,8 @@ export default function TripCover() {
   return (
     <>
       <CoverHero />
+
+      <RouteMap />
 
       <section className="relative border-t-2 border-ink">
         <div className="mx-auto grid max-w-[1400px] gap-12 px-4 py-14 md:grid-cols-12 md:px-8">

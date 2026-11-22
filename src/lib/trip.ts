@@ -1,4 +1,4 @@
-import raw from "@/data/trip.local.json";
+import raw from "@/data/trip.active.json";
 
 // Trip model, seed data and date helpers. All dates are ISO "YYYY-MM-DD", handled in UTC.
 
@@ -12,7 +12,7 @@ export type City = {
   lon: number;
   start: string; // arrival date
   end: string; // departure date
-  stay: { name: string; address: string; checkIn: string };
+  stay: { name: string; address: string; checkIn: string } & Geo;
   stampColor: StampColor;
 };
 
@@ -23,6 +23,9 @@ export type Trip = {
   cities: City[];
 };
 
+/** Coordinates found by the geocoder (or dragged on the map). geo="miss" = looked, found nothing. */
+export type Geo = { lat?: number; lon?: number; geo?: "miss" | "manual" };
+
 export type ActivityKind = "food" | "art" | "walk" | "transit" | "night";
 
 export type Activity = {
@@ -32,21 +35,27 @@ export type Activity = {
   place: string;
   kind: ActivityKind;
   note?: string;
-};
+} & Geo;
 
 export type TaskCategory = "Documents" | "Transport" | "Stay" | "Clothing" | "Essentials";
 export type Task = { id: string; label: string; category: TaskCategory; done: boolean };
 
-export type TripData = { trip: Trip; plans: Record<string, Activity[]>; tasks: Task[] };
+export type TripData = {
+  trip: Trip;
+  plans: Record<string, Activity[]>;
+  tasks: Task[];
+  saved?: Record<string, string[]>;
+};
 
-// Private trip lives in the git-ignored trip.local.json (created from trip.example.json
-// by scripts/ensure-trip-data.mjs on install/dev/build).
+// trip.active.json is generated (git-ignored) by scripts/ensure-trip-data.mjs from your private
+// trip.local.json — or from trip.demo.json when started with `npm run dev:demo`.
 const data = raw as unknown as TripData;
-if (!data?.trip?.cities?.length) throw new Error("src/data/trip.local.json needs at least one city");
+if (!data?.trip?.cities?.length) throw new Error("trip data needs at least one city (check src/data/trip.local.json)");
 
 export const seedTrip: Trip = data.trip;
 export const seedPlans: Record<string, Activity[]> = data.plans ?? {};
 export const seedTasks: Task[] = data.tasks ?? [];
+export const seedSaved: Record<string, string[]> = data.saved ?? {};
 export const TRIP_ID = seedTrip.id;
 
 /* ───────── dates ───────── */

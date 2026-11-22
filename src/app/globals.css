@@ -148,3 +148,48 @@ body::after {
     transform: rotate(var(--r)) !important;
   }
 }
+
+/* ───────────────────────── Map ───────────────────────── */
+.paper-map canvas {
+  filter: contrast(1.06) saturate(0.85);
+}
+.paper-map .maplibregl-ctrl-attrib,
+.paper-map .maplibregl-ctrl-attrib a {
+  font-family: var(--font-spacemono), monospace;
+  font-size: 10px;
+  color: var(--ink-soft);
+}
+.paper-map .maplibregl-ctrl-attrib {
+  background: var(--paper) !important;
+}
+.paper-map .maplibregl-ctrl-group {
+  border-radius: 0;
+  border: 2px solid var(--ink);
+  box-shadow: none;
+  background: var(--paper);
+}
+.paper-map .maplibregl-ctrl-group button + button {
+  border-top: 1px solid var(--ink);
+}
+.paper-map .maplibregl-cooperative-gesture-screen {
+  font-family: var(--font-spacemono), monospace;
+  font-size: 13px;
+  background: rgb(21 18 15 / 0.75);
+  color: var(--newsprint);
+}
+
+/* slip highlighted from a map pin */
+@keyframes flash-ring {
+  0%,
+  60% {
+    outline-color: var(--red);
+  }
+  100% {
+    outline-color: transparent;
+  }
+}
+.flash {
+  outline: 3px solid transparent;
+  outline-offset: 4px;
+  animation: flash-ring 1400ms var(--ease-out);
+}

@@ -95,6 +95,7 @@ function Slip({
       style={{ rotate: tilt }}
       whileDrag={{ scale: 1.03, rotate: 0, zIndex: 10 }}
       transition={{ type: "spring", stiffness: 500, damping: 40 }}
+      id={`plan-${a.id}`}
       className="group relative grid grid-cols-[3rem_1fr] items-start gap-3 md:grid-cols-[3.8rem_1fr] md:gap-5"
     >
       <span className="pt-4 text-right font-mono text-sm font-bold tabular-nums md:text-base">
@@ -112,7 +113,8 @@ function Slip({
               initial={a}
               submitLabel="Save"
               onSubmit={(next) => {
-                onSave({ ...next, id: a.id });
+                const samePlace = next.place === a.place;
+                onSave({ ...next, id: a.id, ...(samePlace ? { lat: a.lat, lon: a.lon, geo: a.geo } : {}) });
                 setEditing(false);
               }}
               onCancel={() => setEditing(false)}
@@ -125,7 +127,20 @@ function Slip({
                 {KIND[a.kind].label}
               </span>
               <h3 className="mt-1.5 font-didone text-xl leading-tight font-bold break-words md:text-2xl">{a.title}</h3>
-              {a.place && <p className="mt-1 font-mono text-xs break-words text-ink-soft">{a.place}</p>}
+              {a.place && (
+                <p className="mt-1 flex flex-wrap items-center gap-x-2 font-mono text-xs break-words text-ink-soft">
+                  {a.lat != null && (
+                    <span
+                      aria-label={`Pin ${i + 1} on the map`}
+                      className="grid size-5 place-items-center bg-ink font-poster text-[11px] text-newsprint"
+                    >
+                      {i + 1}
+                    </span>
+                  )}
+                  {a.place}
+                  {a.geo === "miss" && <span className="text-red">· not on the map — try a fuller address</span>}
+                </p>
+              )}
 
               {a.note && (
                 <>
