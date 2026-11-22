@@ -1,0 +1,647 @@
+{
+  "_comment": "Demo issue. Dates are offsets from today (\"+7\" = 7 days from now), resolved by scripts/ensure-trip-data.mjs. Coordinates baked by scripts/bake-demo-geo.mjs. Hotel names are fictional.",
+  "trip": {
+    "id": "demo-grand-tour",
+    "issue": "00",
+    "season": "The Dada Grand Tour",
+    "cities": [
+      {
+        "slug": "zurich",
+        "name": "Zürich",
+        "country": "Switzerland",
+        "lat": 47.3769,
+        "lon": 8.5417,
+        "start": "+7",
+        "end": "+10",
+        "stay": {
+          "name": "Hotel Merz",
+          "address": "Niederdorfstrasse 24",
+          "checkIn": "15:00",
+          "lat": 47.373849,
+          "lon": 8.543877
+        },
+        "stampColor": "red"
+      },
+      {
+        "slug": "berlin",
+        "name": "Berlin",
+        "country": "Germany",
+        "lat": 52.52,
+        "lon": 13.405,
+        "start": "+10",
+        "end": "+14",
+        "stay": {
+          "name": "Höch Haus Apartments",
+          "address": "Oranienstraße 25",
+          "checkIn": "16:00",
+          "lat": 52.501028,
+          "lon": 13.420744
+        },
+        "stampColor": "blue"
+      },
+      {
+        "slug": "amsterdam",
+        "name": "Amsterdam",
+        "country": "Netherlands",
+        "lat": 52.3676,
+        "lon": 4.9041,
+        "start": "+14",
+        "end": "+17",
+        "stay": {
+          "name": "De Stijl Houseboat",
+          "address": "Prinsengracht 280",
+          "checkIn": "14:00",
+          "lat": 52.370746,
+          "lon": 4.882424
+        },
+        "stampColor": "olive"
+      },
+      {
+        "slug": "paris",
+        "name": "Paris",
+        "country": "France",
+        "lat": 48.8566,
+        "lon": 2.3522,
+        "start": "+17",
+        "end": "+21",
+        "stay": {
+          "name": "Hôtel Tzara",
+          "address": "50 Rue Vieille du Temple",
+          "checkIn": "15:00",
+          "lat": 48.858442,
+          "lon": 2.358649
+        },
+        "stampColor": "red"
+      }
+    ]
+  },
+  "plans": {
+    "+7": [
+      {
+        "id": "d1",
+        "time": "14:00",
+        "title": "Land in Zürich, train into the city",
+        "place": "Zürich HB",
+        "kind": "transit",
+        "lat": 47.378619,
+        "lon": 8.541439
+      },
+      {
+        "id": "d2",
+        "time": "16:00",
+        "title": "Cabaret Voltaire — where Dada was born",
+        "place": "Spiegelgasse 1",
+        "kind": "art",
+        "note": "February 1916: Hugo Ball, Emmy Hennings, Tristan Tzara and Hans Arp opened a nightclub here and accidentally started an art movement. Check the evening programme.",
+        "lat": 47.371609,
+        "lon": 8.543931
+      },
+      {
+        "id": "d3",
+        "time": "19:30",
+        "title": "Fondue in the Niederdorf",
+        "place": "Niederdorfstrasse",
+        "kind": "food",
+        "note": "Order one pot fewer than you think you need.",
+        "lat": 47.374398,
+        "lon": 8.543819
+      }
+    ],
+    "+8": [
+      {
+        "id": "d4",
+        "time": "10:00",
+        "title": "Kunsthaus Zürich — the Dada collection",
+        "place": "Heimplatz 1",
+        "kind": "art",
+        "note": "Look for Hans Arp and Sophie Taeuber-Arp. She was on the Swiss 50-franc note — check your wallet.",
+        "lat": 47.370224,
+        "lon": 8.54798
+      },
+      {
+        "id": "d5",
+        "time": "13:00",
+        "title": "Lunch at Hiltl, vegetarian since 1898",
+        "place": "Sihlstrasse 28",
+        "kind": "food",
+        "lat": 47.373211,
+        "lon": 8.536573
+      },
+      {
+        "id": "d6",
+        "time": "15:00",
+        "title": "Lindenhof lookout & the old town lanes",
+        "place": "Lindenhof",
+        "kind": "walk",
+        "lat": 47.372916,
+        "lon": 8.540176
+      },
+      {
+        "id": "d7",
+        "time": "21:00",
+        "title": "Cocktails along the Langstrasse",
+        "place": "Langstrasse",
+        "kind": "night",
+        "lat": 47.380174,
+        "lon": 8.528014
+      }
+    ],
+    "+9": [
+      {
+        "id": "d8",
+        "time": "09:30",
+        "title": "Lake promenade, coffee in hand",
+        "place": "Utoquai",
+        "kind": "walk",
+        "lat": 47.36176,
+        "lon": 8.547011
+      },
+      {
+        "id": "d9",
+        "time": "11:30",
+        "title": "Museum für Gestaltung — the Swiss poster archive",
+        "place": "Ausstellungsstrasse 60",
+        "kind": "art",
+        "note": "Swiss Style: grids, Helvetica, total order. The polar opposite of Dada, made in the same city. Compare and contrast.",
+        "lat": 47.382982,
+        "lon": 8.535799
+      },
+      {
+        "id": "d10",
+        "time": "18:00",
+        "title": "Schnitzel in an old armoury",
+        "place": "Bahnhofstrasse 28a",
+        "kind": "food",
+        "lat": 47.37022,
+        "lon": 8.539703
+      }
+    ],
+    "+10": [
+      {
+        "id": "d11",
+        "time": "08:30",
+        "title": "Train Zürich → Berlin",
+        "place": "Zürich HB → Berlin Hauptbahnhof",
+        "kind": "transit",
+        "note": "Roughly eight hours. Window seat, sketchbook, too many snacks.",
+        "lat": 52.524945,
+        "lon": 13.369661
+      },
+      {
+        "id": "d12",
+        "time": "19:00",
+        "title": "Late döner, Kreuzberg-style",
+        "place": "Mehringdamm 32",
+        "kind": "food",
+        "lat": 52.493931,
+        "lon": 13.387985
+      }
+    ],
+    "+11": [
+      {
+        "id": "d13",
+        "time": "10:00",
+        "title": "Berlinische Galerie — Höch & Hausmann",
+        "place": "Alte Jakobstraße 124",
+        "kind": "art",
+        "note": "Berlin Dada lives here: photomontage by Hannah Höch and Raoul Hausmann. Bring a notebook — you'll want to steal ideas for this app.",
+        "lat": 52.503906,
+        "lon": 13.398233
+      },
+      {
+        "id": "d14",
+        "time": "13:30",
+        "title": "Street-food lunch at Markthalle Neun",
+        "place": "Eisenbahnstraße 42",
+        "kind": "food",
+        "lat": 52.502166,
+        "lon": 13.431489
+      },
+      {
+        "id": "d15",
+        "time": "15:30",
+        "title": "East Side Gallery, the long walk",
+        "place": "Mühlenstraße",
+        "kind": "walk",
+        "lat": 52.505,
+        "lon": 13.4397,
+        "geo": "manual"
+      },
+      {
+        "id": "d16",
+        "time": "22:00",
+        "title": "Dancing at Clärchens Ballhaus",
+        "place": "Auguststraße 24",
+        "kind": "night",
+        "lat": 52.526474,
+        "lon": 13.39691
+      }
+    ],
+    "+12": [
+      {
+        "id": "d17",
+        "time": "11:00",
+        "title": "Hamburger Bahnhof — art in a train station",
+        "place": "Invalidenstraße 50",
+        "kind": "art",
+        "lat": 52.52844,
+        "lon": 13.372039
+      },
+      {
+        "id": "d18",
+        "time": "14:00",
+        "title": "Tiergarten to the Brandenburg Gate",
+        "place": "Brandenburger Tor",
+        "kind": "walk",
+        "lat": 52.51627,
+        "lon": 13.377703
+      },
+      {
+        "id": "d19",
+        "time": "17:00",
+        "title": "Neue Nationalgalerie at golden hour",
+        "place": "Potsdamer Straße 50",
+        "kind": "art",
+        "note": "Mies van der Rohe's glass box. Go for the building as much as for the art.",
+        "lat": 52.507041,
+        "lon": 13.367621
+      }
+    ],
+    "+14": [
+      {
+        "id": "d20",
+        "time": "09:00",
+        "title": "Train Berlin → Amsterdam",
+        "place": "Berlin Hauptbahnhof → Amsterdam Centraal",
+        "kind": "transit",
+        "lat": 52.378901,
+        "lon": 4.900581
+      },
+      {
+        "id": "d21",
+        "time": "17:30",
+        "title": "Canal loop through the Jordaan",
+        "place": "Westerstraat",
+        "kind": "walk",
+        "lat": 52.378923,
+        "lon": 4.886542
+      },
+      {
+        "id": "d22",
+        "time": "20:00",
+        "title": "Rijsttafel: twenty tiny dishes",
+        "place": "Kerkstraat",
+        "kind": "food",
+        "lat": 52.362421,
+        "lon": 4.896045
+      }
+    ],
+    "+15": [
+      {
+        "id": "d23",
+        "time": "10:00",
+        "title": "Stedelijk Museum — De Stijl & Mondrian",
+        "place": "Museumplein 10",
+        "kind": "art",
+        "note": "In 1923 Theo van Doesburg toured the Netherlands with Kurt Schwitters — the 'Kleine Dada Soirée' poster on our mood board. De Stijl and Dada were secretly friends.",
+        "lat": 52.3579,
+        "lon": 4.87986
+      },
+      {
+        "id": "d24",
+        "time": "13:00",
+        "title": "Foodhallen lunch crawl",
+        "place": "Bellamyplein 51",
+        "kind": "food",
+        "lat": 52.367329,
+        "lon": 4.8679
+      },
+      {
+        "id": "d25",
+        "time": "15:30",
+        "title": "Rijksmuseum: The Night Watch",
+        "place": "Museumstraat 1",
+        "kind": "art",
+        "lat": 52.359663,
+        "lon": 4.884279
+      },
+      {
+        "id": "d26",
+        "time": "21:00",
+        "title": "Brown café, jenever tasting",
+        "place": "Spui",
+        "kind": "night",
+        "lat": 52.368782,
+        "lon": 4.889683
+      }
+    ],
+    "+16": [
+      {
+        "id": "d27",
+        "time": "09:30",
+        "title": "Free ferry across the IJ",
+        "place": "Buiksloterweg",
+        "kind": "walk",
+        "lat": 52.38306,
+        "lon": 4.905048
+      },
+      {
+        "id": "d28",
+        "time": "11:00",
+        "title": "Eye Filmmuseum",
+        "place": "IJpromenade 1",
+        "kind": "art",
+        "lat": 52.384335,
+        "lon": 4.900812
+      },
+      {
+        "id": "d29",
+        "time": "14:30",
+        "title": "Fresh stroopwafel at the Albert Cuyp market",
+        "place": "Albert Cuypstraat",
+        "kind": "food",
+        "lat": 52.354948,
+        "lon": 4.890229
+      }
+    ],
+    "+17": [
+      {
+        "id": "d30",
+        "time": "10:00",
+        "title": "Train Amsterdam → Paris",
+        "place": "Amsterdam Centraal → Gare du Nord",
+        "kind": "transit",
+        "lat": 48.879567,
+        "lon": 2.357212
+      },
+      {
+        "id": "d31",
+        "time": "16:00",
+        "title": "Croissant reconnaissance mission",
+        "place": "Rue des Martyrs",
+        "kind": "food",
+        "lat": 48.877845,
+        "lon": 2.339522
+      },
+      {
+        "id": "d32",
+        "time": "20:30",
+        "title": "Jazz in a medieval cellar",
+        "place": "5 Rue de la Huchette",
+        "kind": "night",
+        "lat": 48.852787,
+        "lon": 2.346298
+      }
+    ],
+    "+18": [
+      {
+        "id": "d33",
+        "time": "10:00",
+        "title": "Musée d'Orsay — the clock window",
+        "place": "Musée d'Orsay",
+        "kind": "art",
+        "note": "Book a timed ticket. Head straight to the top floor, then work down.",
+        "lat": 48.859918,
+        "lon": 2.326585
+      },
+      {
+        "id": "d34",
+        "time": "13:00",
+        "title": "Lunch at Marché des Enfants Rouges",
+        "place": "39 Rue de Bretagne",
+        "kind": "food",
+        "lat": 48.862961,
+        "lon": 2.362165
+      },
+      {
+        "id": "d35",
+        "time": "15:30",
+        "title": "Shakespeare and Company",
+        "place": "37 Rue de la Bûcherie",
+        "kind": "walk",
+        "lat": 48.852575,
+        "lon": 2.347112
+      },
+      {
+        "id": "d36",
+        "time": "19:30",
+        "title": "Steak frites in a tiny bistro",
+        "place": "Rue de Bretagne",
+        "kind": "food",
+        "lat": 48.8629,
+        "lon": 2.3606,
+        "geo": "manual"
+      }
+    ],
+    "+19": [
+      {
+        "id": "d37",
+        "time": "11:00",
+        "title": "Palais de Tokyo",
+        "place": "13 Avenue du Président Wilson",
+        "kind": "art",
+        "note": "Open late and very weird — the most Dada museum in Paris. Good rainy-day plan.",
+        "lat": 48.864631,
+        "lon": 2.29647
+      },
+      {
+        "id": "d38",
+        "time": "15:00",
+        "title": "Montmartre, every single stair",
+        "place": "Sacré-Cœur",
+        "kind": "walk",
+        "lat": 48.886806,
+        "lon": 2.343015
+      },
+      {
+        "id": "d39",
+        "time": "18:30",
+        "title": "Apéro with the whole city below",
+        "place": "Place du Tertre",
+        "kind": "night",
+        "lat": 48.886527,
+        "lon": 2.340804
+      }
+    ],
+    "+20": [
+      {
+        "id": "d40",
+        "time": "10:00",
+        "title": "Flea-market dig for the archive",
+        "place": "Marché Paul Bert Serpette",
+        "kind": "walk",
+        "lat": 48.903348,
+        "lon": 2.338213
+      },
+      {
+        "id": "d41",
+        "time": "14:00",
+        "title": "Falafel on Rue des Rosiers",
+        "place": "34 Rue des Rosiers",
+        "kind": "food",
+        "lat": 48.85741,
+        "lon": 2.359049
+      },
+      {
+        "id": "d42",
+        "time": "17:00",
+        "title": "Buy postcards & stamps for the scrapbook",
+        "place": "Rue de Rivoli",
+        "kind": "walk",
+        "lat": 48.856643,
+        "lon": 2.355245
+      }
+    ],
+    "+21": [
+      {
+        "id": "d43",
+        "time": "11:00",
+        "title": "Fly home, suitcase heavier",
+        "place": "Aéroport Charles de Gaulle",
+        "kind": "transit",
+        "lat": 49.006891,
+        "lon": 2.571082
+      }
+    ]
+  },
+  "saved": {
+    "+8": [
+      "gallery-hours"
+    ],
+    "+11": [
+      "market-layers"
+    ],
+    "+15": [
+      "wine-at-eight"
+    ],
+    "+18": [
+      "gallery-hours",
+      "wet-flaneur"
+    ],
+    "+19": [
+      "wet-flaneur"
+    ]
+  },
+  "tasks": [
+    {
+      "id": "t1",
+      "label": "Passport valid for 3+ months after the trip",
+      "category": "Documents",
+      "done": true
+    },
+    {
+      "id": "t2",
+      "label": "Travel insurance — policy number saved offline",
+      "category": "Documents",
+      "done": true
+    },
+    {
+      "id": "t3",
+      "label": "Scan passport + cards to an encrypted folder",
+      "category": "Documents",
+      "done": true
+    },
+    {
+      "id": "t4",
+      "label": "Museum tickets: Kunsthaus, Stedelijk, Orsay",
+      "category": "Documents",
+      "done": false
+    },
+    {
+      "id": "t5",
+      "label": "Train Zürich → Berlin (seat reservation!)",
+      "category": "Transport",
+      "done": true
+    },
+    {
+      "id": "t6",
+      "label": "Train Berlin → Amsterdam",
+      "category": "Transport",
+      "done": true
+    },
+    {
+      "id": "t7",
+      "label": "Train Amsterdam → Paris",
+      "category": "Transport",
+      "done": false
+    },
+    {
+      "id": "t8",
+      "label": "Flights there and back",
+      "category": "Transport",
+      "done": true
+    },
+    {
+      "id": "t9",
+      "label": "Zürich: Hotel Merz — confirm late check-in",
+      "category": "Stay",
+      "done": true
+    },
+    {
+      "id": "t10",
+      "label": "Berlin: get the apartment door code",
+      "category": "Stay",
+      "done": false
+    },
+    {
+      "id": "t11",
+      "label": "Amsterdam: houseboat — ask if it actually rocks",
+      "category": "Stay",
+      "done": true
+    },
+    {
+      "id": "t12",
+      "label": "Paris: Hôtel Tzara — request a room on a high floor",
+      "category": "Stay",
+      "done": false
+    },
+    {
+      "id": "t13",
+      "label": "Waterproof coat that still looks good in photos",
+      "category": "Clothing",
+      "done": true
+    },
+    {
+      "id": "t14",
+      "label": "Shoes broken in for 20k-step days",
+      "category": "Clothing",
+      "done": true
+    },
+    {
+      "id": "t15",
+      "label": "One very red scarf (for the aesthetic)",
+      "category": "Clothing",
+      "done": false
+    },
+    {
+      "id": "t16",
+      "label": "Something sparkly for a night out in Berlin",
+      "category": "Clothing",
+      "done": false
+    },
+    {
+      "id": "t17",
+      "label": "Adapters: Swiss Type J + EU Type C/F",
+      "category": "Essentials",
+      "done": true
+    },
+    {
+      "id": "t18",
+      "label": "Card with no foreign fees; some CHF and €",
+      "category": "Essentials",
+      "done": true
+    },
+    {
+      "id": "t19",
+      "label": "Offline maps for all four cities",
+      "category": "Essentials",
+      "done": false
+    },
+    {
+      "id": "t20",
+      "label": "Glue stick + blank notebook for the collage diary",
+      "category": "Essentials",
+      "done": false
+    }
+  ]
+}
