@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# private trip data (real cities/dates) — see src/data/trip.example.json
+src/data/trip.local.json

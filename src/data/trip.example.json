@@ -1,0 +1,60 @@
+{
+  "trip": {
+    "id": "my-trip",
+    "issue": "01",
+    "season": "Spring 27",
+    "cities": [
+      {
+        "slug": "rome",
+        "name": "Rome",
+        "country": "Italy",
+        "lat": 41.9028,
+        "lon": 12.4964,
+        "start": "2027-04-10",
+        "end": "2027-04-14",
+        "stay": { "name": "", "address": "", "checkIn": "" },
+        "stampColor": "red"
+      },
+      {
+        "slug": "florence",
+        "name": "Florence",
+        "country": "Italy",
+        "lat": 43.7696,
+        "lon": 11.2558,
+        "start": "2027-04-14",
+        "end": "2027-04-17",
+        "stay": { "name": "", "address": "", "checkIn": "" },
+        "stampColor": "blue"
+      },
+      {
+        "slug": "venice",
+        "name": "Venice",
+        "country": "Italy",
+        "lat": 45.4408,
+        "lon": 12.3155,
+        "start": "2027-04-17",
+        "end": "2027-04-20",
+        "stay": { "name": "", "address": "", "checkIn": "" },
+        "stampColor": "olive"
+      }
+    ]
+  },
+  "plans": {
+    "2027-04-10": [{ "id": "s1", "time": "", "title": "Arrive in Rome", "place": "Rome", "kind": "transit" }],
+    "2027-04-14": [{ "id": "s2", "time": "", "title": "Train Rome → Florence", "place": "Roma Termini → Firenze SMN", "kind": "transit" }],
+    "2027-04-17": [{ "id": "s3", "time": "", "title": "Train Florence → Venice", "place": "Firenze SMN → Venezia S. Lucia", "kind": "transit" }],
+    "2027-04-20": [{ "id": "s4", "time": "", "title": "Fly home", "place": "Venice", "kind": "transit" }]
+  },
+  "tasks": [
+    { "id": "t1", "label": "Passport valid for 3+ months after the trip", "category": "Documents", "done": false },
+    { "id": "t2", "label": "Check visa requirements", "category": "Documents", "done": false },
+    { "id": "t3", "label": "Travel insurance — save the policy number offline", "category": "Documents", "done": false },
+    { "id": "t4", "label": "Book trains between cities", "category": "Transport", "done": false },
+    { "id": "t5", "label": "Flights there and back", "category": "Transport", "done": false },
+    { "id": "t6", "label": "Book a stay in every city", "category": "Stay", "done": false },
+    { "id": "t7", "label": "Shoes broken in for long walking days", "category": "Clothing", "done": false },
+    { "id": "t8", "label": "One rain layer", "category": "Clothing", "done": false },
+    { "id": "t9", "label": "Plug adapters", "category": "Essentials", "done": false },
+    { "id": "t10", "label": "Offline maps for every city", "category": "Essentials", "done": false }
+  ]
+}
