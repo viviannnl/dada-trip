@@ -148,9 +148,7 @@ export function Checklist() {
                       <input
                         type="checkbox"
                         checked={t.done}
-                        onChange={() =>
-                          setTasks((ts) => ts.map((x) => (x.id === t.id ? { ...x, done: !x.done } : x)))
-                        }
+                        onChange={() => setTasks((ts) => ts.map((x) => (x.id === t.id ? { ...x, done: !x.done } : x)))}
                         className="peer sr-only"
                       />
                       <span

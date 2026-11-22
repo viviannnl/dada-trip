@@ -5,13 +5,15 @@ import { Pencil, Plus } from "lucide-react";
 import { update, useTripState } from "@/lib/store";
 import { diffDays, fmt, type City } from "@/lib/trip";
 import { Ransom, Stamp, Tape, Torn } from "./print";
+import { PhotoClipping } from "./clipping";
+import { cityArt } from "@/lib/images";
 
 export function CityList() {
   const { trip } = useTripState();
   return (
     <ul className="mt-4 space-y-12">
       {trip.cities.map((c, i) => (
-        <li key={c.slug} className="relative grid grid-cols-[auto_1fr] gap-x-5 md:grid-cols-[auto_1fr_auto]">
+        <li key={c.slug} className="relative grid grid-cols-[auto_1fr] gap-x-5 md:grid-cols-[auto_1fr_15rem]">
           <span className="font-poster text-6xl leading-none text-red md:text-7xl">0{i + 1}</span>
           <div className="min-w-0">
             <Ransom as="h3" text={c.name} seed={i * 7} className="text-[clamp(2.5rem,6vw,4.5rem)]" />
@@ -21,11 +23,19 @@ export function CityList() {
             </p>
             <StayCard city={c} i={i} />
           </div>
-          <div className="absolute -top-12 -right-3 scale-[0.7] md:static md:scale-100">
+          <CityPhoto city={c} i={i} />
+          <div className="wobble absolute -top-12 -right-3 z-10 scale-[0.7] md:top-auto md:right-auto md:bottom-10 md:left-[calc(100%-7rem)] md:scale-90">
             <Stamp
               top={c.name}
               middle={fmt(c.start, { day: "2-digit", month: "short" })}
-              bottom={c.country.length > 12 ? c.country.split(" ").map((w) => w[0]).join("") : c.country}
+              bottom={
+                c.country.length > 12
+                  ? c.country
+                      .split(" ")
+                      .map((w) => w[0])
+                      .join("")
+                  : c.country
+              }
               color={c.stampColor}
               size={110}
               rotate={[-14, 9, -4][i % 3]}
@@ -34,6 +44,26 @@ export function CityList() {
         </li>
       ))}
     </ul>
+  );
+}
+
+function CityPhoto({ city, i }: { city: City; i: number }) {
+  const art = cityArt(city.slug);
+  if (!art) return null;
+  return (
+    <div
+      className={`group col-span-2 mt-5 md:col-span-1 md:col-start-3 md:row-start-1 md:mt-0 ${i % 2 ? "rotate-2" : "-rotate-2"}`}
+    >
+      <PhotoClipping
+        art={art}
+        seed={60 + i * 11}
+        className="lift aspect-[4/3] w-full"
+        sizes="(min-width: 768px) 240px, 90vw"
+      />
+      <p className="mt-1 font-mono text-[9px] tracking-[0.14em] text-ink-soft uppercase">
+        {city.name}, c. 1900 — {art.license.toLowerCase()}
+      </p>
+    </div>
   );
 }
 
@@ -65,8 +95,21 @@ function StayCard({ city, i }: { city: City; i: number }) {
 
         {editing ? (
           <form onSubmit={save} className="mt-2 space-y-2" onKeyDown={(e) => e.key === "Escape" && setEditing(false)}>
-            <Field id={`${id}-n`} name="name" label="Place" defaultValue={city.stay.name} placeholder="Hotel or flat name" autoFocus />
-            <Field id={`${id}-a`} name="address" label="Address" defaultValue={city.stay.address} placeholder="Street, area" />
+            <Field
+              id={`${id}-n`}
+              name="name"
+              label="Place"
+              defaultValue={city.stay.name}
+              placeholder="Hotel or flat name"
+              autoFocus
+            />
+            <Field
+              id={`${id}-a`}
+              name="address"
+              label="Address"
+              defaultValue={city.stay.address}
+              placeholder="Street, area"
+            />
             <Field id={`${id}-c`} name="checkIn" label="Check-in" type="time" defaultValue={city.stay.checkIn} />
             <div className="flex gap-2 pt-1">
               <button

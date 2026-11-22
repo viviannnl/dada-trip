@@ -3,7 +3,14 @@ import { hash, pick, range, rng, tornClip } from "@/lib/seeded";
 
 /* ───────── Ransom: each letter cut from a different "magazine" ───────── */
 
-const FACES = ["font-didone italic", "font-poster", "font-mono font-bold", "font-type", "font-didone font-black", "font-grotesk font-extrabold"];
+const FACES = [
+  "font-didone italic",
+  "font-poster",
+  "font-mono font-bold",
+  "font-type",
+  "font-didone font-black",
+  "font-grotesk font-extrabold",
+];
 const SKINS = [
   "",
   "",
@@ -26,7 +33,10 @@ export function Ransom({
 }) {
   const r = rng(hash(text) + seed);
   return (
-    <Tag className={`ransom inline-flex items-baseline ${className.includes("flex-nowrap") ? "" : "flex-wrap"} ${className}`} aria-label={text}>
+    <Tag
+      className={`ransom inline-flex items-baseline ${className.includes("flex-nowrap") ? "" : "flex-wrap"} ${className}`}
+      aria-label={text}
+    >
       {[...text].map((ch, i) => {
         if (ch === " ") return <span key={i} className="w-[0.3em]" aria-hidden />;
         const rot = range(r, -7, 7);

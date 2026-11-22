@@ -91,10 +91,17 @@ function Slip({
       value={a}
       dragListener={false}
       dragControls={controls}
-      initial={false}
+      initial={reduce ? false : { opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
       style={{ rotate: tilt }}
       whileDrag={{ scale: 1.03, rotate: 0, zIndex: 10 }}
-      transition={{ type: "spring", stiffness: 500, damping: 40 }}
+      transition={{
+        type: "spring",
+        stiffness: 500,
+        damping: 40,
+        opacity: { duration: 0.25, delay: Math.min(i, 8) * 0.045 },
+        y: { duration: 0.3, ease: [0.2, 0.8, 0.2, 1], delay: Math.min(i, 8) * 0.045 },
+      }}
       id={`plan-${a.id}`}
       className="group relative grid grid-cols-[3rem_1fr] items-start gap-3 md:grid-cols-[3.8rem_1fr] md:gap-5"
     >
@@ -106,7 +113,11 @@ function Slip({
         className="absolute top-[1.35rem] left-[3.25rem] size-3 rounded-full border-2 border-red bg-paper md:left-[4.15rem]"
       />
 
-      <Torn seed={seed} depth={4} className={`paper-shadow ml-3 ${SKIN[i % SKIN.length]}`}>
+      <Torn
+        seed={seed}
+        depth={4}
+        className={`paper-shadow ml-3 transition-transform duration-250 ease-out hover:-translate-y-0.5 hover:rotate-[0.4deg] ${SKIN[i % SKIN.length]}`}
+      >
         {editing ? (
           <div className="p-4">
             <ActivityForm
@@ -123,7 +134,9 @@ function Slip({
         ) : (
           <div className="flex items-start gap-2 py-4 pr-2 pl-4 md:pl-5">
             <div className="min-w-0 flex-1">
-              <span className={`inline-block px-1.5 py-0.5 font-mono text-[10px] tracking-[0.18em] uppercase ${KIND[a.kind].cls}`}>
+              <span
+                className={`inline-block px-1.5 py-0.5 font-mono text-[10px] tracking-[0.18em] uppercase ${KIND[a.kind].cls}`}
+              >
                 {KIND[a.kind].label}
               </span>
               <h3 className="mt-1.5 font-didone text-xl leading-tight font-bold break-words md:text-2xl">{a.title}</h3>
@@ -182,13 +195,30 @@ function Slip({
               <button type="button" aria-label={`Edit ${a.title}`} onClick={() => setEditing(true)} className={iconBtn}>
                 <Pencil size={14} aria-hidden />
               </button>
-              <button type="button" aria-label={`Move ${a.title} earlier`} disabled={i === 0} onClick={() => onMove(i, -1)} className={iconBtn}>
+              <button
+                type="button"
+                aria-label={`Move ${a.title} earlier`}
+                disabled={i === 0}
+                onClick={() => onMove(i, -1)}
+                className={iconBtn}
+              >
                 <ArrowUp size={14} aria-hidden />
               </button>
-              <button type="button" aria-label={`Move ${a.title} later`} disabled={i === last} onClick={() => onMove(i, 1)} className={iconBtn}>
+              <button
+                type="button"
+                aria-label={`Move ${a.title} later`}
+                disabled={i === last}
+                onClick={() => onMove(i, 1)}
+                className={iconBtn}
+              >
                 <ArrowDown size={14} aria-hidden />
               </button>
-              <button type="button" aria-label={`Delete ${a.title}`} onClick={() => onDelete(a.id)} className={`${iconBtn} hover:bg-red`}>
+              <button
+                type="button"
+                aria-label={`Delete ${a.title}`}
+                onClick={() => onDelete(a.id)}
+                className={`${iconBtn} hover:bg-red`}
+              >
                 <X size={14} aria-hidden />
               </button>
             </div>
@@ -277,7 +307,13 @@ function ActivityForm({
         <label htmlFor={`${id}-place`} className={lab}>
           Where
         </label>
-        <input id={`${id}-place`} name="place" defaultValue={initial?.place} placeholder="Address or area" className={input} />
+        <input
+          id={`${id}-place`}
+          name="place"
+          defaultValue={initial?.place}
+          placeholder="Address or area"
+          className={input}
+        />
       </div>
       <div className="col-span-2">
         <label htmlFor={`${id}-note`} className={lab}>

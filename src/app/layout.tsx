@@ -29,6 +29,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      // the intro gate script sets data-intro-seen before hydration
+      suppressHydrationWarning
       className={`${bodoni.variable} ${anton.variable} ${archivo.variable} ${spaceMono.variable} ${elite.variable}`}
     >
       <body className="min-h-dvh">

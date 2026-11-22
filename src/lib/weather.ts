@@ -51,14 +51,16 @@ async function forecast(city: City, date: string): Promise<DayWeather> {
     `&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_speed_10m_max` +
     `&timezone=auto&start_date=${date}&end_date=${date}`;
   const j = await once(`f:${city.slug}:${date}`, () => getJSON(url));
-  const d = (j as { daily: Record<string, number[]> }).daily;
+  const d = (j as { daily: Record<string, (number | null)[]> }).daily;
+  // the last forecast days can come back empty — treat that as "no forecast yet"
+  if (d.temperature_2m_max?.[0] == null || d.temperature_2m_min?.[0] == null) throw new Error("No forecast for this day yet");
   return {
     date,
-    high: Math.round(d.temperature_2m_max[0]),
-    low: Math.round(d.temperature_2m_min[0]),
-    precip: Math.round(d.precipitation_probability_max[0] ?? 0),
-    wind: Math.round(d.wind_speed_10m_max[0]),
-    code: d.weather_code[0],
+    high: Math.round(d.temperature_2m_max[0]!),
+    low: Math.round(d.temperature_2m_min[0]!),
+    precip: Math.round(d.precipitation_probability_max?.[0] ?? 0),
+    wind: Math.round(d.wind_speed_10m_max?.[0] ?? 0),
+    code: d.weather_code?.[0] ?? 3,
     source: "forecast",
   };
 }
@@ -126,7 +128,8 @@ export function useWeather(city: City, date: string) {
   useEffect(() => {
     let live = true;
     const ahead = diffDays(todayISO(), date);
-    const job = ahead >= 0 && ahead < FORECAST_DAYS ? forecast(city, date) : climate(city, date);
+    const job =
+      ahead >= 0 && ahead < FORECAST_DAYS ? forecast(city, date).catch(() => climate(city, date)) : climate(city, date);
     job.then(
       (data) => live && setRes({ key, r: { status: "ok", data } }),
       (e: Error) =>

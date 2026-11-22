@@ -10,7 +10,8 @@ import { Torn } from "./print";
 
 type Pt = { id: string; lat: number; lon: number; draggable: boolean; n?: number; title: string; home?: boolean };
 
-const withCity = (q: string, city: City) => (q.toLowerCase().includes(city.name.toLowerCase()) ? q : `${q}, ${city.name}`);
+const withCity = (q: string, city: City) =>
+  q.toLowerCase().includes(city.name.toLowerCase()) ? q : `${q}, ${city.name}`;
 
 /** Looks up coordinates for anything on this day that has a place but no pin yet. */
 function useGeocodeDay(date: string, city: City, items: Activity[]) {
@@ -59,16 +60,31 @@ function useGeocodeDay(date: string, city: City, items: Activity[]) {
   }, [date, city, items]);
 }
 
-export function DayMap({ date, city, items, dayLabel }: { date: string; city: City; items: Activity[]; dayLabel: string }) {
+export function DayMap({
+  date,
+  city,
+  items,
+  dayLabel,
+}: {
+  date: string;
+  city: City;
+  items: Activity[];
+  dayLabel: string;
+}) {
   useGeocodeDay(date, city, items);
 
   const pins: Pt[] = items.flatMap((a, i) =>
-    a.lat != null && a.lon != null ? [{ id: a.id, lat: a.lat, lon: a.lon, draggable: true, n: i + 1, title: a.title }] : [],
+    a.lat != null && a.lon != null
+      ? [{ id: a.id, lat: a.lat, lon: a.lon, draggable: true, n: i + 1, title: a.title }]
+      : [],
   );
   const stay = city.stay;
   const points: Pt[] =
     stay.lat != null && stay.lon != null
-      ? [{ id: "__stay", lat: stay.lat, lon: stay.lon, draggable: false, title: stay.name || "Your stay", home: true }, ...pins]
+      ? [
+          { id: "__stay", lat: stay.lat, lon: stay.lon, draggable: false, title: stay.name || "Your stay", home: true },
+          ...pins,
+        ]
       : pins;
 
   const move = (id: string, lat: number, lon: number) =>
@@ -83,7 +99,10 @@ export function DayMap({ date, city, items, dayLabel }: { date: string; city: Ci
   const jump = (id: string) => {
     const el = document.getElementById(`plan-${id}`);
     if (!el) return;
-    el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+    el.scrollIntoView({
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
+      block: "center",
+    });
     el.classList.remove("flash");
     void el.offsetWidth;
     el.classList.add("flash");

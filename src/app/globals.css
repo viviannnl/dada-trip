@@ -193,3 +193,310 @@ body::after {
   outline-offset: 4px;
   animation: flash-ring 1400ms var(--ease-out);
 }
+
+/* ───────────────────────── Photo clippings ───────────────────────── */
+.clipping {
+  background: var(--paper-deep);
+  overflow: hidden;
+}
+/* develop from blank paper on load */
+.clipping-bw,
+.cutout-bw {
+  opacity: 0;
+  filter: contrast(1.1) blur(6px);
+  transform: scale(1.04);
+  transition:
+    opacity 400ms var(--ease-out),
+    filter 400ms var(--ease-out),
+    transform 400ms var(--ease-out);
+}
+.clipping-bw.is-developed,
+.cutout-bw.is-developed {
+  opacity: 1;
+  filter: contrast(1.1);
+  transform: scale(1);
+}
+.clipping-bw {
+  mix-blend-mode: multiply;
+}
+.clipping-color,
+.cutout-color {
+  opacity: 0;
+  transition: opacity 250ms var(--ease-out);
+}
+/* newsprint dot screen over the photo */
+.clipping-screen {
+  background-image: radial-gradient(rgb(21 18 15 / 0.22) 30%, transparent 32%);
+  background-size: 4px 4px;
+  mix-blend-mode: multiply;
+  transition: opacity 250ms var(--ease-out);
+}
+.group:hover .clipping-color,
+.group:focus-within .clipping-color,
+.group:hover .cutout-color,
+.group:focus-within .cutout-color {
+  opacity: 1;
+}
+.group:hover .clipping-screen,
+.group:focus-within .clipping-screen {
+  opacity: 0.35;
+}
+
+/* placeholder while an image is on its way */
+@keyframes shimmer {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 28px 0;
+  }
+}
+.halftone-shimmer {
+  background-image: radial-gradient(rgb(21 18 15 / 0.18) 30%, transparent 32%);
+  background-size: 7px 7px;
+  animation: shimmer 900ms linear infinite;
+}
+
+/* ───────────────────────── Loader ───────────────────────── */
+@keyframes dada-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.dada-spin {
+  animation: dada-spin 1.6s cubic-bezier(0.6, 0, 0.4, 1) infinite;
+}
+@keyframes dada-hop {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-9px);
+  }
+}
+.dada-hop {
+  animation: dada-hop 1.1s var(--ease-out) infinite;
+}
+@keyframes dada-dots {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.dada-dots {
+  animation: dada-dots 1.1s ease-in-out infinite;
+}
+
+/* ───────────────────────── Hover vocabulary ───────────────────────── */
+/* nav: a red rule is drawn in under the label */
+.draw-line {
+  background-image: linear-gradient(var(--red), var(--red));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  transition: background-size var(--dur-state) var(--ease-out);
+}
+a:hover .draw-line,
+a:focus-visible .draw-line,
+[aria-current] .draw-line {
+  background-size: 100% 2px;
+}
+
+/* rubber stamps wobble when poked */
+@keyframes wobble {
+  0%,
+  100% {
+    rotate: 0deg;
+    scale: 1;
+  }
+  25% {
+    rotate: -7deg;
+    scale: 1.08;
+  }
+  60% {
+    rotate: 5deg;
+  }
+}
+.wobble:hover > *,
+.wobble:focus-visible > * {
+  animation: wobble 400ms var(--ease-out);
+}
+
+/* buttons press down like a stamp */
+.press {
+  transition: transform var(--dur-micro) var(--ease-out);
+}
+.press:active:not(:disabled) {
+  transform: translateY(1px) scale(0.97) rotate(-1deg);
+}
+
+/* paper lifts off the page */
+.lift {
+  transition:
+    transform var(--dur-state) var(--ease-out),
+    box-shadow var(--dur-state) var(--ease-out);
+}
+.lift:hover,
+.lift:focus-within {
+  transform: translateY(-4px) rotate(0deg);
+  box-shadow:
+    0 1px 0 rgb(60 40 20 / 0.12),
+    0 18px 26px -14px rgb(60 40 20 / 0.45);
+}
+
+/* ───────────────────────── Intro ───────────────────────── */
+@keyframes slam {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px) rotate(var(--r)) scale(1.6);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(2px) rotate(var(--r)) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(var(--r)) scale(1);
+  }
+}
+.slam {
+  opacity: 0;
+  animation: slam 260ms var(--ease-out) forwards;
+}
+
+/* ───────────────────────── View transitions ───────────────────────── */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(masthead),
+::view-transition-group(day-strip) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(masthead),
+::view-transition-old(day-strip) {
+  display: none;
+}
+::view-transition-new(masthead),
+::view-transition-new(day-strip) {
+  animation: none;
+}
+
+@keyframes vt-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes vt-tear-out {
+  to {
+    translate: var(--vt-x) 0;
+    rotate: var(--vt-r);
+    opacity: 0;
+  }
+}
+@keyframes vt-drop-in {
+  from {
+    translate: var(--vt-x) 12px;
+    rotate: var(--vt-r);
+    clip-path: inset(0 var(--vt-clip-r) 0 var(--vt-clip-l));
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+/* sections: forward = tear left, new page slides in from the right */
+::view-transition-old(.page-forward) {
+  --vt-x: -70px;
+  --vt-r: -2deg;
+  animation: vt-tear-out 220ms var(--ease-in) both;
+}
+::view-transition-new(.page-forward) {
+  --vt-x: 70px;
+  --vt-r: 1.5deg;
+  --vt-clip-l: 40%;
+  --vt-clip-r: 0%;
+  animation:
+    vt-drop-in 380ms var(--ease-out) 80ms both,
+    vt-fade 200ms var(--ease-out) 80ms both;
+}
+::view-transition-old(.page-back) {
+  --vt-x: 70px;
+  --vt-r: 2deg;
+  animation: vt-tear-out 220ms var(--ease-in) both;
+}
+::view-transition-new(.page-back) {
+  --vt-x: -70px;
+  --vt-r: -1.5deg;
+  --vt-clip-l: 0%;
+  --vt-clip-r: 40%;
+  animation:
+    vt-drop-in 380ms var(--ease-out) 80ms both,
+    vt-fade 200ms var(--ease-out) 80ms both;
+}
+/* days: a gentler page turn */
+::view-transition-old(.day-next) {
+  --vt-x: -40px;
+  --vt-r: -1deg;
+  animation: vt-tear-out 200ms var(--ease-in) both;
+}
+::view-transition-new(.day-next) {
+  --vt-x: 40px;
+  --vt-r: 0.6deg;
+  --vt-clip-l: 30%;
+  --vt-clip-r: 0%;
+  animation:
+    vt-drop-in 340ms var(--ease-out) 60ms both,
+    vt-fade 180ms var(--ease-out) 60ms both;
+}
+::view-transition-old(.day-prev) {
+  --vt-x: 40px;
+  --vt-r: 1deg;
+  animation: vt-tear-out 200ms var(--ease-in) both;
+}
+::view-transition-new(.day-prev) {
+  --vt-x: -40px;
+  --vt-r: -0.6deg;
+  --vt-clip-l: 0%;
+  --vt-clip-r: 30%;
+  animation:
+    vt-drop-in 340ms var(--ease-out) 60ms both,
+    vt-fade 180ms var(--ease-out) 60ms both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+  .slam {
+    opacity: 1;
+    animation: none;
+  }
+  .lift:hover,
+  .lift:focus-within {
+    transform: none;
+  }
+}
+
+/* intro splash: hidden before paint when already seen; torn away upward when leaving */
+:root[data-intro-seen] .intro-splash {
+  display: none;
+}
+.intro-splash {
+  transition:
+    clip-path 400ms var(--ease-in),
+    opacity 400ms var(--ease-in);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 88% 97%, 74% 100%, 60% 96%, 45% 100%, 30% 97%, 15% 100%, 0 97%);
+}
+.intro-splash.is-leaving {
+  clip-path: polygon(0 0, 100% 0, 100% 0%, 88% 0%, 74% 0%, 60% 0%, 45% 0%, 30% 0%, 15% 0%, 0 0%);
+  opacity: 0.9;
+  pointer-events: none;
+}
