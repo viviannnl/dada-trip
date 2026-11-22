@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
+import { sectionDirection } from "./transitions";
 
 const SECTIONS = [
   { n: "01", label: "Overview", href: "" },
@@ -20,7 +21,7 @@ export function Masthead({ issue, season }: { issue: string; season: string }) {
 export function MastheadFrame({ tripId, issue, season, path }: Props & { path?: string }) {
   const base = `/trip/${tripId}`;
   return (
-    <header className="relative z-20 border-b-2 border-ink bg-paper">
+    <header className="relative z-20 border-b-2 border-ink bg-paper" style={{ viewTransitionName: "masthead" }}>
       <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-4 py-2 md:px-8">
         <Link href={base} className="font-poster text-lg tracking-wide uppercase md:text-xl">
           Europe, Unfolded<span className="text-red">.</span>
@@ -38,15 +39,14 @@ export function MastheadFrame({ tripId, issue, season, path }: Props & { path?: 
               <li key={s.n}>
                 <Link
                   href={href}
+                  transitionTypes={[sectionDirection(path, href)]}
                   aria-current={active ? "page" : undefined}
                   className={`group flex items-baseline gap-1.5 whitespace-nowrap font-mono text-xs tracking-[0.14em] uppercase transition-colors duration-150 hover:text-red ${
                     active ? "text-red" : "text-ink"
                   }`}
                 >
                   <span className="text-[10px] opacity-70">{s.n}</span>
-                  <span className={active ? "underline decoration-2 underline-offset-4" : "underline-offset-4 group-hover:underline"}>
-                    {s.label}
-                  </span>
+                  <span className="draw-line pb-0.5">{s.label}</span>
                 </Link>
               </li>
             );

@@ -7,6 +7,7 @@ import { useReducedMotion } from "motion/react";
 import type { Map as MLMap, Marker as MLMarker } from "maplibre-gl";
 import { RotateCw } from "lucide-react";
 import { BASE_STYLE, paperStyle } from "@/lib/map-style";
+import { DadaLoader } from "./dada-loader";
 
 export type MapPoint = { id: string; lat: number; lon: number; draggable?: boolean };
 
@@ -144,7 +145,9 @@ export function PaperMap<P extends MapPoint>({
         source: "path",
         layout: { "line-cap": "round", "line-join": "round" },
         paint: {
-          "line-color": getComputedStyle(document.documentElement).getPropertyValue(pathColor === "red" ? "--red" : "--ink").trim(),
+          "line-color": getComputedStyle(document.documentElement)
+            .getPropertyValue(pathColor === "red" ? "--red" : "--ink")
+            .trim(),
           "line-width": mode === "route" ? 3 : 2.5,
           "line-dasharray": [1.5, 1.6],
         },
@@ -178,15 +181,17 @@ export function PaperMap<P extends MapPoint>({
       })}
 
       {status === "loading" && (
-        <div className="absolute inset-0 grid animate-pulse place-items-center bg-paper-deep">
-          <p className="font-mono text-xs tracking-[0.2em] uppercase">Unfolding the map…</p>
+        <div className="halftone-shimmer absolute inset-0 grid place-items-center bg-paper-deep">
+          <DadaLoader label="Mapping" className="bg-paper-deep px-3 py-2" />
         </div>
       )}
       {status === "error" && (
         <div className="absolute inset-0 grid place-items-center bg-paper-deep p-6 text-center">
           <div>
             <p className="font-didone text-2xl italic">The map got lost in the post.</p>
-            <p className="mt-1 font-type text-sm text-ink-soft">The map server didn&apos;t answer, or this browser can&apos;t draw WebGL.</p>
+            <p className="mt-1 font-type text-sm text-ink-soft">
+              The map server didn&apos;t answer, or this browser can&apos;t draw WebGL.
+            </p>
             <button
               type="button"
               onClick={() => {

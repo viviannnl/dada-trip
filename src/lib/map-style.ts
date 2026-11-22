@@ -40,7 +40,7 @@ export function paperStyle(style: StyleSpecification, mode: "route" | "day"): St
       if (/casing|subtle|tunnel|pier|aeroway|dashline|path/.test(id)) return hide();
       if (id.startsWith("boundary")) return keep({ "line-color": ink, "line-opacity": 0.45, "line-dasharray": [3, 2] });
       if (id.startsWith("railway")) return keep({ "line-color": ink, "line-opacity": mode === "day" ? 0.14 : 0.1 });
-      const strength = id.includes("motorway") ? 0.4 : id.includes("major") ? 0.26 : 0.12;
+      const strength = id.includes("motorway") ? 0.26 : id.includes("major") ? 0.16 : 0.08;
       return keep({ "line-color": ink, "line-opacity": mode === "route" ? strength * 0.5 : strength });
     }
 

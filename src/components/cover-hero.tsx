@@ -30,7 +30,8 @@ export function CoverHero() {
 
       {/* vertical dates along the edge */}
       <p className="vertical absolute top-28 right-2 z-10 hidden font-mono text-xs tracking-[0.3em] uppercase md:block">
-        {fmt(start, { day: "2-digit", month: "2-digit" })} → {fmt(end, { day: "2-digit", month: "2-digit", year: "numeric" })}
+        {fmt(start, { day: "2-digit", month: "2-digit" })} →{" "}
+        {fmt(end, { day: "2-digit", month: "2-digit", year: "numeric" })}
       </p>
 
       <p className="relative z-10 font-mono text-[11px] leading-relaxed tracking-[0.18em] uppercase">

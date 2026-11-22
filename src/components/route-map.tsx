@@ -49,7 +49,9 @@ export function RouteMap() {
               </li>
             ))}
           </ol>
-          <p className="mt-3 font-type text-sm text-ink-soft">Straight-line distance. Trains take the scenic version.</p>
+          <p className="mt-3 font-type text-sm text-ink-soft">
+            Straight-line distance. Trains take the scenic version.
+          </p>
         </div>
 
         <div className="relative md:col-span-8">
@@ -66,8 +68,9 @@ export function RouteMap() {
               renderMarker={(p) => (
                 <Link
                   href={`/trip/${TRIP_ID}/itinerary?day=${p.city.start}`}
+                  transitionTypes={["page-forward"]}
                   aria-label={`${p.city.name}, from ${fmt(p.city.start, { day: "numeric", month: "long" })} — open that day`}
-                  className="block transition-transform duration-150 hover:scale-110"
+                  className="wobble block"
                 >
                   <Stamp
                     top={p.city.name}

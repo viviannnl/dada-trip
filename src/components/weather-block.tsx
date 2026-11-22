@@ -44,14 +44,14 @@ function Reading({ d }: { d: DayWeather }) {
           {climate && <span className="align-top font-mono text-base tracking-normal">≈</span>}
           {d.high}°
         </p>
-        <div className="pb-2">
+        <div className="min-w-0 pb-2">
           <p className="font-poster text-3xl leading-none uppercase md:text-4xl">Low {d.low}°</p>
           <p className="mt-2 inline-block -rotate-2 bg-ink px-2 py-1 font-poster text-xl text-newsprint uppercase md:text-2xl">
             {climate ? `Usually ${describe(d.code).toLowerCase()}` : describe(d.code)}
           </p>
         </div>
       </div>
-      <dl className="mt-5 grid grid-cols-2 gap-4 font-mono text-xs uppercase">
+      <dl className="mt-5 grid grid-cols-1 gap-4 font-mono text-xs uppercase min-[380px]:grid-cols-2">
         <div>
           <dt className="tracking-[0.16em] opacity-70">{climate ? "Wet in past years" : "Chance of rain"}</dt>
           <dd className="mt-1 flex items-center gap-2">
