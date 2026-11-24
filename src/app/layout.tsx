@@ -33,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
       className={`${bodoni.variable} ${anton.variable} ${archivo.variable} ${spaceMono.variable} ${elite.variable}`}
     >
-      <body className="min-h-dvh">
+      <body className="min-h-dvh" suppressHydrationWarning>
         {/* shared print filters */}
         <svg width="0" height="0" aria-hidden className="absolute">
           <filter id="ink-rough">
